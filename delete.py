@@ -4,7 +4,7 @@ conn = sqlite3.connect("test.db")
 
 c = conn.cursor()
 
-c.execute("""INSERT INTO students VALUES ('Hadley', 'Holden', 156756657)""")
+c.execute("""DELETE FROM students WHERE firstname = 'Hadley'""")
 
 
 conn.commit()
