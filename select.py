@@ -13,9 +13,9 @@ result = c.fetchall()
 
 print(result)
 
-number_of_rows = cursor.execute(sql)
+#number_of_rows = cursor.execute(sql)
 
-result = cursor.fetchall()
+result = c.fetchall()
 for row in result:
   print(row[0], row[1])
 
