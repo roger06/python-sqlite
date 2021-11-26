@@ -3,10 +3,16 @@ import sys
 table = 'postcodes'
 inputFile = '/home/roger/Downloads/postcodes.csv'
 
+createTable = False
+breakAt = 10
+
 # lsoa_name,LSOA
 
-sql = "CREATE TABLE `"+ table +"` \n (`postcode` varchar(12) DEFAULT NULL,\n  `postcode2` varchar(12) DEFAULT NULL,\n `lsoa_name` varchar(255) DEFAULT NULL, \n`LSOA` varchar(12) DEFAULT NULL )\n ENGINE=InnoDB \nDEFAULT CHARSET=utf8;\n\n"
-
+if createTable is True:
+    sql = "CREATE TABLE `"+ table +"` \n (`postcode` varchar(12) DEFAULT NULL,\n  `postcode2` varchar(12) DEFAULT NULL,\n `lsoa_name` varchar(255) DEFAULT NULL, \n`LSOA` varchar(12) DEFAULT NULL )\n ENGINE=InnoDB \nDEFAULT CHARSET=utf8;\n\n"
+else:
+    sql = ''
+    
 rowCount = 1
 
 with open(inputFile, newline='') as csvfile:
@@ -31,11 +37,12 @@ with open(inputFile, newline='') as csvfile:
 
         sql += "\n"
 
-        # if rowCount == 10:
-        #     break
+        print(sql)
+
+        if rowCount == breakAt:
+            break
 
 
-
-f = open("postcodes.sql", "w")
-f.write(sql)
-f.close()
+# f = open("postcodes.sql", "w")
+# f.write(sql)
+# f.close()
