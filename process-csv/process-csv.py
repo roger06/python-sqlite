@@ -6,6 +6,7 @@ import math
 
 table = 'postcodes'
 inputFile = 'data/postcodes.csv'
+inputFile = 'data/airports.csv'
 
 createTable = True   # true creates the table
 breakAt = 10
@@ -52,20 +53,14 @@ if createTable is True:
 else:
     sql = ''
 
-print(sql)
+# print(sql)
 
 
 sql += ")\n ENGINE=InnoDB \nDEFAULT CHARSET=utf8;\n\n"
+   
+insertCode = "INSERT INTO `"+ table +"`  VALUES \n ("
 
-
-    
-
-insertSql = "INSERT INTO `"+ table +"` "
-
-
-# `postcode`, `postcode2`,`lsoa_name`, `LSOA`
-# 
-insertSql += " VALUES \n ("
+insertSql = insertCode
 
 rowCount = 1
 
@@ -73,7 +68,7 @@ with open(inputFile, newline='') as csvfile:
     reader = csv.DictReader(csvfile)
 
     totalrows = len(open(inputFile).readlines())
-    print( totalrows)
+    # print( totalrows)
 
     numFiles = totalrows / linesPerFile
 
@@ -81,29 +76,26 @@ with open(inputFile, newline='') as csvfile:
 
     fileToWrite = "postcodes"+ str(fileCount) + ".sql"
 
-    # insertSql = insertCode     
     # sys.exit()
     
     for row in reader:
-        lsoa_name = row["lsoa_name"].replace("'", "''")
-        lsoa_name = lsoa_name.replace(",", "::")
-        
+     
         colCount = 0
 
         for column in headerList:
-
+            row[column] = row[column].replace("'", "''")
             insertSql += " '" + row[column] + "'"
             if colCount != numOfFields-1:
-                insertSql += ",  \n"
+                insertSql += ", "
     
             colCount += 1    
             # '"+ row["postcode2"]+ "',   '"+  lsoa_name+ "', '"+ row["LSOA"]+ "')"
         rowCount +=1
         insertSql += ")"
-        print(insertSql)
+        # print(insertSql)
 
 
-        sys.exit()
+        # sys.exit()
         lineCounter += 1
      
      
