@@ -8,7 +8,7 @@ inputFile = '/home/roger/Downloads/postcodes.csv'
 createTable = True   # true creates the table
 breakAt = 10
 linesPerFile = 200000   # max lines per file
-lineCounter = 0
+lineCounter = 1
 fileName = 'postcodes_'  # base file name
 fileExt = '.sql'  # file extention
 fileCount = 1
@@ -57,12 +57,14 @@ with open(inputFile, newline='') as csvfile:
         # if rowCount == breakAt:
         #     break
         # print("row " + str(lineCounter) + " File = " + str(fileCount) )
-        if lineCounter == linesPerFile:
+
+        if lineCounter == linesPerFile or rowCount == totalrows:
 
             fileToWrite = "postcodes"+ str(fileCount) + ".sql"
             
             lineCounter = 1  # reset line count
             fileCount += 1   
+            print(".", end='')
         
 
             f = open("output/"+  fileToWrite , "w")
@@ -77,3 +79,5 @@ with open(inputFile, newline='') as csvfile:
         # print("File to write = " + fileToWrite)     # this print command really slows down script execution.
 
 f.close()
+print("final line count = " + str(lineCounter) )
+print("final row count = " + str(rowCount) )
