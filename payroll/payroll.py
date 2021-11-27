@@ -12,23 +12,29 @@ taxFile = 'data/tax-tables.json'
 empData = pd.read_json(empFile)
 taxData = pd.read_json(taxFile)
 
+print(taxData)
 
-for index, row in taxData.iterrows():
-        print(row['id'] , row['minsalary'] , row['maxsalary'], row['rate'])
+# for index, row in taxData.iterrows():
+#     print(index, row[3])
+ 
 
 sys.exit()
-# functions.calNetSalary(238476)
-
 
 # for index, row in empData.iterrows():
 #     print(row['id'] , row['firstname'] , row['lastname'] + " £" + str(functions.printSalary(row['salary']))  + " take-home = " + str(functions.printSalary(586) ))
 
 for index, row in empData.iterrows():
-    print( str(functions.calNetSalary(row['salary'], taxData) ))
+    salary = row['salary']
+    # print( str(functions.calNetSalary(row['salary'], taxData) ))
 
 # str(functions.calNetSalary(row['salary']) )
-   
+    # for index, row in taxData.iterrows():
+    #         print(row['id'] , row['minsalary'] , row['maxsalary'], row['rate'])
 
-# print(empData.to_string())  
+            # if salary > row['minsalary'] and salary <  row['maxsalary']:
+            #     band = row['id']
+            #     print("Band is ",band  )
 
-# print(empData[0])
+    print( "For salary ", salary , " " ,  functions.calNetSalary(salary, taxData))
+              
+    # sys.exit()
