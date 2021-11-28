@@ -1,6 +1,7 @@
 import pandas as pd
 import sys
 import functions
+import json
 
 empFile = 'data/employees.json'
 taxFile = 'data/tax-tables.json'
@@ -10,31 +11,27 @@ taxFile = 'data/tax-tables.json'
 
 
 empData = pd.read_json(empFile)
-taxData = pd.read_json(taxFile)
-
-print(taxData)
-
-# for index, row in taxData.iterrows():
-#     print(index, row[3])
+# taxData = pd.read_json(taxFile)
  
 
-sys.exit()
+with open(taxFile) as json_file:
+    taxData = json.load(json_file)
+  
+  
 
-# for index, row in empData.iterrows():
-#     print(row['id'] , row['firstname'] , row['lastname'] + " £" + str(functions.printSalary(row['salary']))  + " take-home = " + str(functions.printSalary(586) ))
+# sys.exit()
 
+# 
 for index, row in empData.iterrows():
     salary = row['salary']
-    # print( str(functions.calNetSalary(row['salary'], taxData) ))
 
-# str(functions.calNetSalary(row['salary']) )
-    # for index, row in taxData.iterrows():
-    #         print(row['id'] , row['minsalary'] , row['maxsalary'], row['rate'])
 
-            # if salary > row['minsalary'] and salary <  row['maxsalary']:
-            #     band = row['id']
-            #     print("Band is ",band  )
-
-    print( "For salary ", salary , " " ,  functions.calNetSalary(salary, taxData))
-              
+    netSalary = functions.calNetSalary(salary, taxData) /12
+    netSalary = "{:.2f}".format(netSalary)
+   
+    
+    print( row['firstname'], row['lastname'] , "£",netSalary  )
+   
     # sys.exit()
+
+   
